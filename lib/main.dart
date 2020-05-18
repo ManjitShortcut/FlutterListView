@@ -1,22 +1,69 @@
 import 'package:flutter/material.dart';
-import './Transaction.dart';
-import "package:intl/intl.dart";
+import './Widget/TransactionWiget.dart';
+import './Widget/addNewTransaction.dart';
 
 void main() => runApp(ListViewApp());
+
 class ListViewApp extends StatelessWidget {
+@override
+  Widget build(BuildContext context) {
+     return MaterialApp(
+     title: "My app",
+     theme: ThemeData(primaryColor: 
+     Colors.yellowAccent,
+     accentColor: Colors.amber,
+     fontFamily: "Quicksand", // global font through out the app
+     textTheme: ThemeData.light().textTheme.copyWith(
+                 title:TextStyle(fontFamily: "OpenSans",fontSize:30),),
+      appBarTheme: AppBarTheme(color: Colors.red, textTheme: ThemeData.light().textTheme.copyWith(title: 
+      TextStyle(fontFamily:"OpenSans",  // set all navigation bar 
+                fontSize: 20, 
+                fontWeight: FontWeight.bold),),),  
 
-final List <Transaction> transactionList = [Transaction(id:"1",name:"Glocery store",amount:89.0,dateTime: DateTime.now()),Transaction(id:"2",name:"Glocery store2",amount:90.0,dateTime: DateTime.now())];
 
+     ),
+     
+     home: HomePage(),
+     // used to for lot of default configuration of the app. like app bar theme , navigation bar theme
+     // bottom navigation bar theme
+     );
+  }
+} 
+class HomePage extends StatelessWidget {
+  static const String _message =
+      'This is the modal bottom sheet. Click anywhere to dismiss.';
+
+    void _addTransactionTolist( String title, double amount) {
+    // final newTx = Transaction(id: "deqweqw", name: title, amount: amount, dateTime: DateTime.now());
+    // setState(() {
+    //       transactionList.add(newTx);
+    //    });
+    }
+     void _showModalBottomSheet(BuildContext cotcntext) =>
+      showModalBottomSheet<void>(
+        context: cotcntext,
+        builder: (BuildContext context){
+         return Container(child:
+         AddnewTransaction(_addTransactionTolist),
+         );
+        },
+      );
+      //Navigator.of(context).pop(); is used to manually dismiss bottom sheet
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: 
+            print(context);
+    return 
     Scaffold(
-      appBar:AppBar(title:Text("ListView"),),
+      appBar:AppBar(title:Text("MyApp"),actions: <Widget>[
+        IconButton(icon: Icon(Icons.add), onPressed:() => _showModalBottomSheet(context),)
+      ],),
+      // adding single child scroll view// you can add scroll view to a 
+      // if the heght is predefine // so yo can add single child view to a 
+      // container or body
       body:Column( // colom has two axis one is main axis and another is 
                    //  main axis is to top to bottom and cross axis is from right to left
-                   // But in case of row the the main axis is left to right and cross axis is right to left
-                        
-        mainAxisAlignment: MainAxisAlignment.center, // alignemne of column
+                   // But in case of row the the main axis is left to right and cross axis is right to left               
+        mainAxisAlignment: MainAxisAlignment.start, // alignemne of column
         crossAxisAlignment: CrossAxisAlignment.center, // all the child element start from 
        //crossAxisAlignment: CrossAxisAlignment.strectch // it will take full with of
        // the parent                                            //  right 
@@ -28,49 +75,15 @@ final List <Transaction> transactionList = [Transaction(id:"1",name:"Glocery sto
              color: Colors.brown,
           ),
           ),
-       Column(children: 
-       transactionList.map((tl){
-         return  Card(
-            color:Colors.green,
-            child: Row(
-             children: <Widget>[
-               Container(
-                 margin:EdgeInsets.all(10),
-                 padding: EdgeInsets.all(10),
-                 decoration: BoxDecoration(border: Border.all(
-                   color: Colors.yellow, width: 3
-                 ),),
-                 child: Text("\$:${tl.amount.toString()}",
-                 style:TextStyle (
-                   fontWeight: FontWeight.bold,
-                   fontSize:20,
-                   color: Colors.black,
-                 ),
-                 ),
-               ),
-              Column( 
-               crossAxisAlignment: CrossAxisAlignment.start, // by default 
-                // cross axis is center 
-                children: <Widget>[
-                Text(tl.name, 
-                style: TextStyle(
-                  fontWeight:FontWeight.bold,
-                  fontSize: 15,
-                  color:Colors.red,
-                 ),),
-                Text(DateFormat().format(tl.dateTime)),
-                // https://pub.dev/documentation/intl/latest/intl/DateFormat-class.html date format
-              ],),
-             ],
-            ),
-          );
-       }).toList()
-       ),
+         TransactionView(),
         ],
       ),
+      // floatingActionButtonLocation:FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton:FloatingActionButton(
+      //  child: Icon(Icons.add),
+      //   onPressed: (){
 
-      ),
-      
-    );
+      //   },),
+      );
   }
 }
