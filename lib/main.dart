@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import './Widget/TransactionWiget.dart';
 import './Widget/addNewTransaction.dart';
@@ -19,8 +21,6 @@ class ListViewApp extends StatelessWidget {
       TextStyle(fontFamily:"OpenSans",  // set all navigation bar 
                 fontSize: 20, 
                 fontWeight: FontWeight.bold),),),  
-
-
      ),
      
      home: HomePage(),
@@ -30,8 +30,6 @@ class ListViewApp extends StatelessWidget {
   }
 } 
 class HomePage extends StatelessWidget {
-  static const String _message =
-      'This is the modal bottom sheet. Click anywhere to dismiss.';
 
     void _addTransactionTolist( String title, double amount) {
     // final newTx = Transaction(id: "deqweqw", name: title, amount: amount, dateTime: DateTime.now());
@@ -71,10 +69,14 @@ class HomePage extends StatelessWidget {
           Container(
             width:double.infinity,
             child: Card (
-             child: Text("Chat view"),
-             color: Colors.brown,
+             child: Container(
+               height: 200,
+               child: Image.asset("image/waiting.png", fit: BoxFit.fitHeight,), // is used for 
+             ),
+             color: Colors.green,
           ),
           ),
+          SizedBox(height: 10,), // giving scace between two adjacent element
          TransactionView(),
         ],
       ),
