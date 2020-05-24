@@ -21,7 +21,6 @@ class TransactionList extends StatelessWidget {
         child: ListView.builder (
           itemCount: transactionList.length,
           itemBuilder:(ct, index){
-          
             return Card(
               color:Theme.of(context).primaryColor,
               child: Row(
